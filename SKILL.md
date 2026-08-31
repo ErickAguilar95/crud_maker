@@ -47,6 +47,10 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 ### 2. Generar CRUD con validaciones
 
 * Generar creación, consulta, edición y eliminación, con autorización y protección CSRF/nonce según contexto WordPress.
+* Crear una nueva sección propia dentro de `wp-admin` para cada módulo CRUD. Registrar menú principal, pantalla de listado, pantalla o formulario de alta/edición y acciones de eliminación del CRUD principal.
+* Si el CRUD usa catálogos relacionados, crear también sub-secciones independientes para administrar cada catálogo. Cada catálogo debe contar con su propio CRUD completo: listar, crear, editar y eliminar, respetando permisos, validaciones, migraciones y estilos.
+* Ubicar CRUD principal y CRUDs de catálogos bajo misma sección funcional del menú. Usar etiquetas, orden y jerarquía claros; no mezclar catálogo con registros principales ni reutilizar secciones ajenas.
+* Mostrar en CRUD principal los catálogos como controles de relación válidos y filtrados. Un cambio en catálogo debe reflejarse sin romper integridad referencial de registros existentes.
 * Aplicar obligatoriamente todas las reglas de [references/validaciones.md](references/validaciones.md).
 * Usar contrato de reglas dinámicas derivado del esquema para que frontend y backend compartan tipo, requerido, longitud, rango, catálogo, relaciones, condiciones y mensajes.
 * Validar siempre en frontend y backend. Backend es autoridad final; debe rechazar datos inválidos antes de persistirlos.
@@ -78,6 +82,7 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 
 * Comprobar migraciones `up` y `down`.
 * Comprobar flujos crear, listar, editar y eliminar.
+* Comprobar acceso a nueva sección de WordPress, CRUD principal y cada CRUD de catálogo relacionado.
 * Ejecutar casos obligatorios de validación y carga masiva definidos en sus referencias.
 * Verificar que errores de backend se muestren correctamente en frontend y que datos válidos se persistan conforme al esquema.
 * Verificar que la comunicación utilice la API REST de WordPress y que los listados implementen `WP_List_Table`.
