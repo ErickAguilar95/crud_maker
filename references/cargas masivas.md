@@ -19,31 +19,30 @@ Cuando un módulo permita crear o actualizar múltiples registros mediante una c
 
 #### Plantilla y registro de ejemplo obligatorios
 
-Toda pantalla de carga masiva debe incluir dos descargas CSV generadas para la entidad y esquema vigentes:
+Toda pantalla de carga masiva debe incluir una descarga CSV generada para la entidad y esquema vigentes:
 
-* **Descargar plantilla:** archivo CSV con encabezados exactos y en orden válido para importación; no debe incluir registros de datos.
-* **Descargar ejemplo:** archivo CSV con los mismos encabezados y un registro de ejemplo válido, ficticio y seguro para usar como referencia.
+* **Descargar plantilla CSV:** archivo con encabezados exactos y en orden válido para importación, seguido por exactamente un registro de ejemplo válido, ficticio y seguro para usar como referencia.
 
-Los encabezados visibles de plantilla y ejemplo deben estar en español claro, por ejemplo `Correo electrónico`, `Fecha de vencimiento` y `Estado`. Importador debe mapearlos mediante contrato controlado a campos internos; no inferir mapeos por texto libre ni aceptar encabezados ambiguos.
+Los encabezados visibles de plantilla deben estar en español claro, por ejemplo `Correo electrónico`, `Fecha de vencimiento` y `Estado`. Importador debe mapearlos mediante contrato controlado a campos internos; no inferir mapeos por texto libre ni aceptar encabezados ambiguos.
 
-Ambos archivos deben:
+Archivo debe:
 
 * reflejar columnas importables, requeridas, opcionales, longitud, formato y claves únicas actuales;
 * excluir campos administrativos, de solo lectura, autogenerados, contraseñas, secretos y cualquier dato no importable;
 * actualizarse cuando cambie el esquema o configuración de importación; no usar encabezados ni valores fijos desactualizados;
 * usar codificación y delimitador compatibles con importador;
-* ser validados mediante mismo contrato de columnas usado por proceso de carga;
+* validarse mediante mismo contrato de columnas usado por proceso de carga;
 * incluir, junto a descargas, indicación de cómo representar relaciones, booleanos, fechas, listas y valores permitidos cuando correspondan.
 
 Registro de ejemplo no debe incluir datos personales, credenciales, identificadores reales ni datos de producción. Si un campo de relación requiere un catálogo existente, usar valor ficticio claramente identificado o documentar valor permitido sin inducir a una carga inválida.
 
 #### Limpieza previa de datos
 
-Toda pantalla de carga masiva debe incluir un switch explícito:
+Toda pantalla de carga masiva debe incluir un switch visual explícito, con apariencia y comportamiento de interruptor; no representarlo como checkbox tradicional:
 
 **Limpiar datos existentes antes de la carga**
 
-* El switch debe estar desactivado por defecto.
+* El switch debe estar desactivado por defecto y comunicar estado `Activado` o `Desactivado` de forma accesible.
 * Debe explicar claramente que, al activarse, los registros existentes pertenecientes al alcance de esa importación serán eliminados antes de insertar los datos del CSV.
 * La limpieza debe respetar el alcance de la entidad administrada; nunca elimines información ajena al módulo.
 * La limpieza debe formar parte de la misma operación transaccional de la importación.
@@ -154,11 +153,10 @@ Nunca muestres como creados o actualizados registros que posteriormente hayan si
 Cuando un módulo incluya importación CSV, además de las comprobaciones generales verifica al menos:
 
 * que únicamente acepte CSV;
-* que permita descargar plantilla CSV y ejemplo CSV;
+* que permita descargar una única plantilla CSV con registro de ejemplo;
 * que encabezados, instrucciones y errores se presenten en español claro, sin nombres técnicos internos;
-* que plantilla tenga encabezados importables correctos y no incluya registros;
-* que ejemplo incluya exactamente un registro válido, ficticio y compatible con validación;
-* que plantilla y ejemplo cambien junto con columnas o reglas del esquema;
+* que plantilla tenga encabezados importables correctos y exactamente un registro válido, ficticio y compatible con validación;
+* que plantilla cambie junto con columnas o reglas del esquema;
 * que procese los registros en chunks de máximo 50;
 * que muestre progreso real;
 * que muestre contadores de creados, actualizados y errores;
@@ -168,6 +166,7 @@ Cuando un módulo incluya importación CSV, además de las comprobaciones genera
 * que claves duplicadas dentro del CSV sean rechazadas;
 * que coincidencias ambiguas contra datos existentes sean rechazadas;
 * que el switch de limpieza esté desactivado por defecto;
+* que opción de limpieza se muestre visualmente como switch y no como checkbox tradicional;
 * que la limpieza sólo afecte a la entidad administrada;
 * que un error en cualquier fila deje la base de datos exactamente en el estado anterior a la importación;
 * que un error posterior a una limpieza también restaure los registros eliminados;

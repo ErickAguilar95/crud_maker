@@ -207,9 +207,9 @@ Todo CRUD debe sentirse y comportarse como una administración nativa de WordPre
 * `Importar CSV` desde página de listado debe abrir pantalla propia de importación para misma entidad, no diálogo flotante.
 * Mostrar título `Importar [entidad]` y acción `Regresar al listado` junto al título.
 * Debajo de encabezado, explicar formato CSV, codificación, delimitador y máximo de filas por bloque con texto breve en español.
-* Mantener visibles `Descargar plantilla CSV` y `Descargar ejemplo CSV` antes de selector de archivo.
+* Mantener visible `Descargar plantilla CSV` antes de selector de archivo. Descarga debe incluir encabezados y un registro de ejemplo ficticio en mismo archivo.
 * Presentar selector de archivo con etiqueta `Archivo CSV`, texto de ayuda y errores asociados.
-* Mostrar opción de limpieza sólo como switch/checkbox nativo desactivado por defecto, con advertencia clara de alcance. No usar color o texto ambiguo para minimizar riesgo.
+* Mostrar opción de limpieza únicamente como switch visual nativo de WordPress, nunca como checkbox tradicional. Debe iniciar desactivado, indicar estado accesible y acompañarse de advertencia clara de alcance. No usar color o texto ambiguo para minimizar riesgo.
 * Usar `Iniciar importación` como única acción principal; mantener botón deshabilitado hasta que archivo cumpla validaciones iniciales cuando sea posible.
 * Durante importación y al finalizar, mostrar progreso, resultado y errores con avisos, tablas y textos nativos de WordPress. Incluir forma visible de volver al listado.
 
