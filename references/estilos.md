@@ -176,6 +176,51 @@ Priorizar estructuras existentes de WordPress para:
 
 No construir una aplicación completamente independiente dentro de `wp-admin` salvo que exista una razón explícita para hacerlo.
 
+## Patrón obligatorio para CRUDs administrativos
+
+Todo CRUD debe sentirse y comportarse como una administración nativa de WordPress. Cada entidad requiere pantallas separadas de listado, creación, edición e importación; no concentrar todos los flujos en una sola pantalla ni abrir formularios de alta o edición dentro de modales salvo requerimiento explícito.
+
+### Página de listado
+
+* Mostrar título de entidad en encabezado de página, por ejemplo `Farmacias`.
+* Colocar acciones de primer nivel junto al título: `Agregar nueva` e `Importar CSV`. Usar botones nativos de WordPress; creación es acción principal e importación es acción secundaria visible, no enlace oculto ni acción por fila.
+* Ubicar búsqueda y filtros encima de tabla. Usar campos y selects nativos, etiquetas claras en español, botón `Filtrar` y acción `Limpiar` cuando haya filtros activos.
+* Mostrar total de registros encontrados antes de tabla.
+* Renderizar listado con `WP_List_Table` cuando corresponda: cabecera, filas alternadas, columnas legibles, ordenamiento, paginación, acciones en bloque y estado vacío nativos.
+* Definir columnas según entidad. Mantener datos breves alineados y permitir que textos largos, como dirección, tengan ancho suficiente y salto de línea legible; no comprimir contenido hasta hacerlo ilegible.
+* Mantener identificador como dato secundario, nombre como dato visualmente principal y relaciones con etiquetas comprensibles en español.
+* Mostrar estado con etiqueta discreta y accesible. No usar únicamente color para comunicar activo/inactivo.
+* Mostrar acciones por registro en última columna: `Editar` como enlace nativo y `Eliminar` como acción destructiva claramente diferenciada, con confirmación antes de ejecutar.
+* En pantallas estrechas, conservar posibilidad de consultar y operar tabla mediante scroll horizontal controlado o patrón nativo equivalente; no ocultar silenciosamente columnas críticas ni acciones.
+
+### Página de creación y edición
+
+* Abrir creación y edición en páginas propias con títulos `Agregar [entidad]` y `Editar [entidad]`.
+* Mostrar acción `Regresar al listado` junto al título; debe preservar filtros o paginación previos cuando sea posible.
+* Usar formulario vertical nativo WordPress: etiquetas sobre controles, descripción debajo cuando haga falta, agrupación semántica, errores junto al campo y resumen accesible al inicio.
+* Mantener campos en orden de captura del usuario; primero identificación y datos principales, después relaciones, configuración y acciones.
+* Usar botón principal nativo para guardar. En edición, separar claramente guardado y eliminación; eliminación nunca comparte estilo de acción principal.
+* Al guardar correctamente, mostrar aviso nativo de éxito y regresar o enlazar al listado según flujo del módulo. Al fallar, conservar valores seguros y mostrar errores del backend.
+
+### Página de importación CSV
+
+* `Importar CSV` desde página de listado debe abrir pantalla propia de importación para misma entidad, no diálogo flotante.
+* Mostrar título `Importar [entidad]` y acción `Regresar al listado` junto al título.
+* Debajo de encabezado, explicar formato CSV, codificación, delimitador y máximo de filas por bloque con texto breve en español.
+* Mantener visibles `Descargar plantilla CSV` y `Descargar ejemplo CSV` antes de selector de archivo.
+* Presentar selector de archivo con etiqueta `Archivo CSV`, texto de ayuda y errores asociados.
+* Mostrar opción de limpieza sólo como switch/checkbox nativo desactivado por defecto, con advertencia clara de alcance. No usar color o texto ambiguo para minimizar riesgo.
+* Usar `Iniciar importación` como única acción principal; mantener botón deshabilitado hasta que archivo cumpla validaciones iniciales cuando sea posible.
+* Durante importación y al finalizar, mostrar progreso, resultado y errores con avisos, tablas y textos nativos de WordPress. Incluir forma visible de volver al listado.
+
+### Línea visual común
+
+* Usar fondo, tipografía, espaciado, bordes, botones, controles, tablas, enlaces y avisos propios de `wp-admin` o de componentes oficiales WordPress.
+* Mantener encabezado alineado a la izquierda, acciones cercanas al título y separación vertical sobria entre encabezado, filtros, contador, tabla o formulario.
+* Preferir botones rectangulares nativos, bordes y foco de WordPress. No aplicar gradientes, tarjetas flotantes, sombras decorativas, radios excesivos ni paleta ajena.
+* Aplicar azul de acción sólo a acciones normales o principales, y estilo destructivo nativo exclusivamente a eliminación. Estados deben conservar contraste y foco de teclado.
+* Todo texto de interfaz, etiquetas, columnas, ayudas, filtros, mensajes y acciones debe estar en español claro, consistente y orientado a usuario; no mostrar claves o nombres técnicos internos.
+
 ## Jerarquía de interacción en Gutenberg
 
 Al crear bloques o experiencias dentro del editor Gutenberg, seguir la jerarquía de interacción propia de Gutenberg.
