@@ -15,6 +15,27 @@ Cuando un módulo permita crear o actualizar múltiples registros mediante una c
   * que no existan encabezados inválidos o ambiguos;
   * que cada fila tenga una estructura válida.
 * Documenta en la interfaz las columnas requeridas, opcionales y, cuando aplique, las columnas utilizadas como clave única.
+* Presenta nombres de campos, columnas, acciones, ayudas y errores en español claro y amigable. No expongas nombres técnicos de base de datos, claves internas ni identificadores de código al usuario.
+
+#### Plantilla y registro de ejemplo obligatorios
+
+Toda pantalla de carga masiva debe incluir dos descargas CSV generadas para la entidad y esquema vigentes:
+
+* **Descargar plantilla:** archivo CSV con encabezados exactos y en orden válido para importación; no debe incluir registros de datos.
+* **Descargar ejemplo:** archivo CSV con los mismos encabezados y un registro de ejemplo válido, ficticio y seguro para usar como referencia.
+
+Los encabezados visibles de plantilla y ejemplo deben estar en español claro, por ejemplo `Correo electrónico`, `Fecha de vencimiento` y `Estado`. Importador debe mapearlos mediante contrato controlado a campos internos; no inferir mapeos por texto libre ni aceptar encabezados ambiguos.
+
+Ambos archivos deben:
+
+* reflejar columnas importables, requeridas, opcionales, longitud, formato y claves únicas actuales;
+* excluir campos administrativos, de solo lectura, autogenerados, contraseñas, secretos y cualquier dato no importable;
+* actualizarse cuando cambie el esquema o configuración de importación; no usar encabezados ni valores fijos desactualizados;
+* usar codificación y delimitador compatibles con importador;
+* ser validados mediante mismo contrato de columnas usado por proceso de carga;
+* incluir, junto a descargas, indicación de cómo representar relaciones, booleanos, fechas, listas y valores permitidos cuando correspondan.
+
+Registro de ejemplo no debe incluir datos personales, credenciales, identificadores reales ni datos de producción. Si un campo de relación requiere un catálogo existente, usar valor ficticio claramente identificado o documentar valor permitido sin inducir a una carga inválida.
 
 #### Limpieza previa de datos
 
@@ -133,6 +154,11 @@ Nunca muestres como creados o actualizados registros que posteriormente hayan si
 Cuando un módulo incluya importación CSV, además de las comprobaciones generales verifica al menos:
 
 * que únicamente acepte CSV;
+* que permita descargar plantilla CSV y ejemplo CSV;
+* que encabezados, instrucciones y errores se presenten en español claro, sin nombres técnicos internos;
+* que plantilla tenga encabezados importables correctos y no incluya registros;
+* que ejemplo incluya exactamente un registro válido, ficticio y compatible con validación;
+* que plantilla y ejemplo cambien junto con columnas o reglas del esquema;
 * que procese los registros en chunks de máximo 50;
 * que muestre progreso real;
 * que muestre contadores de creados, actualizados y errores;
