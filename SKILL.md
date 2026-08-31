@@ -53,20 +53,32 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 * Mostrar en frontend los errores estructurados que devuelva backend, junto al campo correspondiente y en un resumen accesible cuando aplique.
 * Usar consultas preparadas o APIs con parámetros enlazados. Nunca concatenar entradas de usuario en SQL.
 
-### 3. Generar carga masiva
+### 3. Uso de API REST y WP_List_Table
+
+* **Comunicación Frontend/Backend:** Para la creación, lectura, actualización y eliminación de registros desde interfaces personalizadas, genera la comunicación consumiendo la API REST nativa de WordPress (usando rutas `/wp-json/`) mediante `apiFetch`[cite: 5]. Esto permite separar responsabilidades: el backend maneja la lógica pura de datos y el frontend gestiona la vista y los errores sin recargar la página.
+* **Listados Nativos Administrativos:** Cuando se requiera mostrar listas de registros en el área de administración (`wp-admin`), utiliza obligatoriamente la clase nativa `WP_List_Table` de WordPress[cite: 6]. Esto garantiza que las tablas hereden automáticamente la paginación, las columnas ordenables, las acciones en bloque y el aspecto visual exacto del núcleo de WordPress.
+
+### 4. Generar carga masiva
 
 * Incluir carga masiva correspondiente a entidad CRUD cuando módulo permita crear o actualizar múltiples registros.
 * Implementarla exclusivamente según [references/cargas masivas.md](references/cargas%20masivas.md): CSV, validación previa, chunks máximos de 50, staging o transacción all-or-nothing, conciliación por clave única, progreso real, errores por fila y controles de seguridad.
 * No implementar carga masiva si requerimiento la excluye explícitamente.
 
-### 4. Respetar estilos
+### 5. Trazabilidad y Auditoría
+
+* Implementar obligatoriamente el registro de movimientos para cada acción que modifique datos (crear, actualizar, eliminar).
+* Seguir estrictamente la estructura de logs, captura de contexto (IP, usuario, acción) y formato JSON descritos en [references/auditoria.md](references/auditoria.md).
+
+### 6. Respetar estilos
 
 * Diseñar y generar toda interfaz CRUD, validaciones, tablas, formularios, modales, carga masiva, avisos y estados usando obligatoriamente [references/estilos.md](references/estilos.md).
 * Mantener convenciones, componentes, tokens y accesibilidad de WordPress. No introducir un lenguaje visual paralelo.
 
-### 5. Comprobación final
+### 7. Comprobación final
 
 * Comprobar migraciones `up` y `down`.
 * Comprobar flujos crear, listar, editar y eliminar.
 * Ejecutar casos obligatorios de validación y carga masiva definidos en sus referencias.
 * Verificar que errores de backend se muestren correctamente en frontend y que datos válidos se persistan conforme al esquema.
+* Verificar que la comunicación utilice la API REST de WordPress y que los listados implementen `WP_List_Table`.
+* Verificar que todo evento de creación, actualización o eliminación detone correctamente la inserción en la tabla de auditoría.

@@ -272,6 +272,12 @@ No restilizar innecesariamente componentes existentes de WordPress.
 
 Evitar sobrescribir CSS interno de componentes de WordPress salvo que no exista una alternativa soportada.
 
+## Interfaces Declarativas
+
+* **Configuración basada en Arrays:** Al generar formularios de creación, edición o páginas de ajustes, evita escribir código HTML estático repetitivo. Utiliza una arquitectura declarativa basada en arreglos (arrays) para registrar la configuración de cada campo[cite: 12].
+* **Estructura Estándar:** El array declarativo debe contener claves estandarizadas, incluyendo obligatoriamente un identificador de control `type` (por ejemplo: 'text', 'textarea', 'editor', 'repeater', 'switch'), `label`, y elementos opcionales como `description` o `default`[cite: 12].
+* **Motor de Renderizado:** Un motor central en el backend debe iterar sobre este array y dibujar los controles e inputs correspondientes a cada tipo basándose en su declaración[cite: 12].
+
 ## Accesibilidad
 
 La accesibilidad es obligatoria.

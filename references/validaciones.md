@@ -141,3 +141,11 @@ Para cada CRUD, comprobar al menos:
 * intento de inyección SQL rechazado o tratado como valor mediante consultas parametrizadas;
 * error generado en backend visible en frontend junto al campo correcto;
 * datos válidos persistidos correctamente.
+
+## Sanitización y Escapado Estándar
+
+Toda entrada y salida de datos en los formularios CRUD debe regirse por las siguientes reglas estrictas del ecosistema de WordPress[cite: 12]:
+
+* **Campos de Texto Plano:** Al procesar en el backend antes de guardar, utiliza `sanitize_text_field()`[cite: 12]. Para imprimir estos datos en el frontend, usa `esc_html()` para el contenido visible y `esc_attr()` si el dato se inserta dentro de atributos HTML[cite: 12].
+* **Campos de URL y Enlaces:** Al guardar enlaces o rutas, sanitízalos siempre con `esc_url_raw()`[cite: 12]. Para imprimirlos en el frontend (como en atributos `href` o `src`), utiliza estrictamente `esc_url()`[cite: 12].
+* **Campos de Texto Enriquecido (WYSIWYG):** Nunca uses `sanitize_text_field()` para estos campos, ya que eliminará todas las etiquetas HTML válidas[cite: 12]. Utiliza obligatoriamente `wp_kses_post()` tanto para procesar en el backend como para imprimir en el frontend, lo cual permite etiquetas de formato seguras pero bloquea inyecciones de scripts maliciosos[cite: 12].
