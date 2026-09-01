@@ -47,7 +47,9 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 ### 2. Generar CRUD con validaciones
 
 * Generar creación, consulta, edición y eliminación, con autorización y protección CSRF/nonce según contexto WordPress.
-* Crear una nueva sección propia dentro de `wp-admin` para cada módulo CRUD. Registrar menú principal, pantalla de listado, pantalla o formulario de alta/edición y acciones de eliminación del CRUD principal.
+* Crear una nueva sección propia dentro de `wp-admin` para cada módulo CRUD. Registrar cinco pantallas independientes para CRUD principal: listado de todos los elementos, creación de un elemento, edición de un elemento, confirmación de eliminación y carga masiva.
+* No combinar alta, edición, eliminación o carga masiva dentro de listado. Cada pantalla debe tener URL o ruta propia, título claro y acción `Regresar al listado` cuando aplique.
+* Pantalla de eliminación debe identificar registro, advertir consecuencia, permitir cancelar y requerir confirmación explícita protegida por permiso y nonce. Nunca eliminar mediante petición `GET`.
 * Si el CRUD usa catálogos relacionados, crear también sub-secciones independientes para administrar cada catálogo. Cada catálogo debe contar con su propio CRUD completo: listar, crear, editar y eliminar, respetando permisos, validaciones, migraciones y estilos.
 * Ubicar CRUD principal y CRUDs de catálogos bajo misma sección funcional del menú. Usar etiquetas, orden y jerarquía claros; no mezclar catálogo con registros principales ni reutilizar secciones ajenas.
 * Mostrar en CRUD principal los catálogos como controles de relación válidos y filtrados. Un cambio en catálogo debe reflejarse sin romper integridad referencial de registros existentes.
@@ -83,7 +85,7 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 Antes de dar por terminado desarrollo, ejecutar y reportar validación funcional en entorno de pruebas o datos desechables. Nunca usar datos de producción para estas pruebas.
 
 * Ejecutar migraciones `up` y comprobar tablas, columnas, índices, restricciones, valores por defecto y llaves foráneas. Ejecutar `down` en entorno desechable y confirmar reversión correcta; volver a ejecutar `up` cuando sea necesario para continuar pruebas.
-* Crear datos dummy válidos para CRUD principal y catálogos relacionados. Probar listar, crear, consultar, editar y eliminar; comprobar relaciones, permisos, auditoría y que interfaz muestre cambios persistidos.
+* Crear datos dummy válidos para CRUD principal y catálogos relacionados. Probar páginas de listado, creación, edición, eliminación confirmada y carga masiva; comprobar relaciones, permisos, auditoría y que interfaz muestre cambios persistidos.
 * Ejecutar casos obligatorios de [references/validaciones.md](references/validaciones.md): requeridos, tipos, límites, reglas dinámicas, errores de backend visibles en frontend y persistencia de datos válidos.
 * Probar exportación CSV con datos dummy y, cuando haya filtros, comprobar que exportación respete mismo alcance filtrado y permisos.
 * Importar CSV recién exportado sin editarlo. Confirmar compatibilidad de encabezados y formatos, actualización por clave única sin duplicados, datos preservados y resultado visible en interfaz.

@@ -178,7 +178,7 @@ No construir una aplicación completamente independiente dentro de `wp-admin` sa
 
 ## Patrón obligatorio para CRUDs administrativos
 
-Todo CRUD debe sentirse y comportarse como una administración nativa de WordPress. Cada entidad requiere pantallas separadas de listado, creación, edición e importación; no concentrar todos los flujos en una sola pantalla ni abrir formularios de alta o edición dentro de modales salvo requerimiento explícito.
+Todo CRUD debe sentirse y comportarse como una administración nativa de WordPress. Cada entidad requiere cinco pantallas separadas: listado de todos los elementos, creación, edición, confirmación de eliminación y carga masiva. No concentrar flujos en una sola pantalla ni abrir formularios de alta, edición o eliminación dentro de modales salvo requerimiento explícito.
 
 ### Página de listado
 
@@ -202,6 +202,13 @@ Todo CRUD debe sentirse y comportarse como una administración nativa de WordPre
 * Mantener campos en orden de captura del usuario; primero identificación y datos principales, después relaciones, configuración y acciones.
 * Usar botón principal nativo para guardar. En edición, separar claramente guardado y eliminación; eliminación nunca comparte estilo de acción principal.
 * Al guardar correctamente, mostrar aviso nativo de éxito y regresar o enlazar al listado según flujo del módulo. Al fallar, conservar valores seguros y mostrar errores del backend.
+
+### Página de eliminación
+
+* Enlace `Eliminar` de tabla debe abrir página propia de confirmación, con título `Eliminar [entidad]` y acción `Regresar al listado`.
+* Mostrar identificación legible de registro y advertencia de eliminación. Si existen relaciones que impidan o afecten eliminación, explicarlas antes de confirmar.
+* Mostrar `Cancelar` como acción secundaria y `Eliminar` como única acción destructiva. Confirmación debe requerir permiso y nonce; jamás eliminar mediante enlace o petición `GET`.
+* Tras confirmar, mostrar aviso nativo de resultado y regresar a listado conservando filtros o paginación cuando sea posible.
 
 ### Página de importación CSV
 
