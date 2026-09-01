@@ -65,7 +65,7 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 ### 4. Generar carga masiva
 
 * Incluir carga masiva correspondiente a entidad CRUD cuando módulo permita crear o actualizar múltiples registros.
-* Implementarla exclusivamente según [references/cargas masivas.md](references/cargas%20masivas.md): CSV, validación previa, chunks máximos de 50, staging o transacción all-or-nothing, conciliación por clave única, progreso real, errores por fila y controles de seguridad.
+* Implementarla exclusivamente según [references/cargas masivas.md](references/cargas%20masivas.md): CSV, plantilla con registro de ejemplo, exportación compatible para reimportar sin edición manual, validación previa, chunks máximos de 50, staging o transacción all-or-nothing, conciliación por clave única, progreso real, errores por fila y controles de seguridad.
 * No implementar carga masiva si requerimiento la excluye explícitamente.
 
 ### 5. Trazabilidad y Auditoría

@@ -36,6 +36,19 @@ Archivo debe:
 
 Registro de ejemplo no debe incluir datos personales, credenciales, identificadores reales ni datos de producción. Si un campo de relación requiere un catálogo existente, usar valor ficticio claramente identificado o documentar valor permitido sin inducir a una carga inválida.
 
+#### Exportación compatible con importación
+
+Todo módulo con carga masiva debe ofrecer exportación de sus datos en CSV. Archivo exportado debe poder cargarse nuevamente en mismo importador sin edición manual y sin errores de estructura, formato o encabezados.
+
+* Usar mismo contrato de columnas, encabezados en español, orden, codificación, delimitador y reglas de formato que importación.
+* Exportar todos los campos importables requeridos para crear o actualizar registros, incluida clave única simple o compuesta.
+* Representar relaciones, booleanos, fechas, decimales, listas y valores permitidos exactamente como los espera importador; no sustituirlos por etiquetas de presentación incompatibles.
+* Excluir campos autogenerados, de sólo lectura, secretos y atributos no importables. Si un campo obligatorio no puede exportarse, definir valor seguro permitido o no declarar exportación como compatible hasta resolver contrato.
+* Respetar permisos y alcance de usuario actual. Exportar sólo registros a los que usuario pueda acceder y nunca incluir datos sensibles no autorizados.
+* Cuando listado tenga filtros activos, exportar mismo conjunto filtrado e indicar claramente alcance y cantidad exportada.
+* Al reimportar archivo recién exportado, conciliación por clave única debe actualizar registros existentes sin crear duplicados ni alterar datos fuera del archivo.
+* No mezclar registro de ejemplo de plantilla con exportación de datos reales.
+
 #### Limpieza previa de datos
 
 Toda pantalla de carga masiva debe incluir un switch visual explícito, con apariencia y comportamiento de interruptor; no representarlo como checkbox tradicional:
@@ -157,6 +170,10 @@ Cuando un módulo incluya importación CSV, además de las comprobaciones genera
 * que encabezados, instrucciones y errores se presenten en español claro, sin nombres técnicos internos;
 * que plantilla tenga encabezados importables correctos y exactamente un registro válido, ficticio y compatible con validación;
 * que plantilla cambie junto con columnas o reglas del esquema;
+* que permita exportar datos en CSV dentro del alcance autorizado;
+* que CSV exportado use exactamente contrato compatible con importador;
+* que exportar y reimportar mismo CSV no produzca errores de estructura ni registros duplicados;
+* que exportación respete filtros activos, permisos y exclusión de datos no importables o sensibles;
 * que procese los registros en chunks de máximo 50;
 * que muestre progreso real;
 * que muestre contadores de creados, actualizados y errores;

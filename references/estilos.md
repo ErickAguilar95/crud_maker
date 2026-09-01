@@ -183,9 +183,10 @@ Todo CRUD debe sentirse y comportarse como una administración nativa de WordPre
 ### Página de listado
 
 * Mostrar título de entidad en encabezado de página, por ejemplo `Farmacias`.
-* Colocar acciones de primer nivel junto al título: `Agregar nueva` e `Importar CSV`. Usar botones nativos de WordPress; creación es acción principal e importación es acción secundaria visible, no enlace oculto ni acción por fila.
+* Colocar acciones de primer nivel junto al título: `Agregar nueva`, `Importar CSV` y `Exportar CSV`. Usar botones nativos de WordPress; creación es acción principal e importación y exportación son acciones secundarias visibles, no enlaces ocultos ni acciones por fila.
 * Ubicar búsqueda y filtros encima de tabla. Usar campos y selects nativos, etiquetas claras en español, botón `Filtrar` y acción `Limpiar` cuando haya filtros activos.
 * Mostrar total de registros encontrados antes de tabla.
+* Colocar `Exportar CSV` en encabezado del listado para que exporte el mismo alcance visible y filtrado. Al activarlo, informar cantidad de registros exportados o mostrar aviso nativo con resultado.
 * Renderizar listado con `WP_List_Table` cuando corresponda: cabecera, filas alternadas, columnas legibles, ordenamiento, paginación, acciones en bloque y estado vacío nativos.
 * Definir columnas según entidad. Mantener datos breves alineados y permitir que textos largos, como dirección, tengan ancho suficiente y salto de línea legible; no comprimir contenido hasta hacerlo ilegible.
 * Mantener identificador como dato secundario, nombre como dato visualmente principal y relaciones con etiquetas comprensibles en español.
