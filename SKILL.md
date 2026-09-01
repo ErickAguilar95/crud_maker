@@ -80,10 +80,14 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 
 ### 7. Comprobación final
 
-* Comprobar migraciones `up` y `down`.
-* Comprobar flujos crear, listar, editar y eliminar.
+Antes de dar por terminado desarrollo, ejecutar y reportar validación funcional en entorno de pruebas o datos desechables. Nunca usar datos de producción para estas pruebas.
+
+* Ejecutar migraciones `up` y comprobar tablas, columnas, índices, restricciones, valores por defecto y llaves foráneas. Ejecutar `down` en entorno desechable y confirmar reversión correcta; volver a ejecutar `up` cuando sea necesario para continuar pruebas.
+* Crear datos dummy válidos para CRUD principal y catálogos relacionados. Probar listar, crear, consultar, editar y eliminar; comprobar relaciones, permisos, auditoría y que interfaz muestre cambios persistidos.
+* Ejecutar casos obligatorios de [references/validaciones.md](references/validaciones.md): requeridos, tipos, límites, reglas dinámicas, errores de backend visibles en frontend y persistencia de datos válidos.
+* Probar exportación CSV con datos dummy y, cuando haya filtros, comprobar que exportación respete mismo alcance filtrado y permisos.
+* Importar CSV recién exportado sin editarlo. Confirmar compatibilidad de encabezados y formatos, actualización por clave única sin duplicados, datos preservados y resultado visible en interfaz.
+* Probar plantilla CSV con su único registro ficticio, archivo inválido y carga con error. Confirmar errores por fila, rollback completo y que no queden cambios parciales.
 * Comprobar acceso a nueva sección de WordPress, CRUD principal y cada CRUD de catálogo relacionado.
-* Ejecutar casos obligatorios de validación y carga masiva definidos en sus referencias.
-* Verificar que errores de backend se muestren correctamente en frontend y que datos válidos se persistan conforme al esquema.
-* Verificar que la comunicación utilice la API REST de WordPress y que los listados implementen `WP_List_Table`.
-* Verificar que todo evento de creación, actualización o eliminación detone correctamente la inserción en la tabla de auditoría.
+* Verificar que comunicación use API REST de WordPress, listados implementen `WP_List_Table` y cada creación, actualización o eliminación genere auditoría.
+* Informar resultados ejecutados, entorno usado y cualquier prueba no realizada; no declarar desarrollo terminado si falla una prueba obligatoria.
