@@ -153,7 +153,10 @@ Nunca muestres como creados o actualizados registros que posteriormente hayan si
 
 #### Seguridad de la carga
 
-* Verifica capacidad y nonce antes de aceptar el archivo y nuevamente antes de aplicar los cambios definitivos.
+* Definir y verificar capacidades WordPress específicas para carga masiva por entidad. No asumir que ver la sección o el botón otorga permiso para descargar, exportar o importar.
+* Validar capacidad en backend antes de generar o transmitir plantilla CSV, generar exportación CSV, aceptar archivo, crear staging y aplicar importación. Ocultar acciones no autorizadas en interfaz mejora experiencia, pero nunca sustituye validación de endpoint.
+* Verificar nonce o protección CSRF en solicitudes que cambian estado, incluyendo aceptar archivo y aplicar importación. Revalidar capacidad antes de aplicación definitiva.
+* Para descargas y exportaciones, validar sesión, capacidad y alcance antes de leer datos o iniciar transmisión de archivo. Usuario sin permiso debe recibir respuesta de acceso denegado sin contenido CSV ni datos parciales.
 * No confíes en el nombre, MIME type o extensión enviados por el navegador como única validación.
 * Sanitiza y valida cada valor según el campo de destino antes de prepararlo para persistencia.
 * No permitas que valores del CSV modifiquen propiedades administrativas que no estén expresamente incluidas entre las columnas importables.
@@ -171,6 +174,9 @@ Cuando un módulo incluya importación CSV, además de las comprobaciones genera
 * que plantilla tenga encabezados importables correctos y exactamente un registro válido, ficticio y compatible con validación;
 * que plantilla cambie junto con columnas o reglas del esquema;
 * que permita exportar datos en CSV dentro del alcance autorizado;
+* que usuario con capacidad autorizada pueda descargar plantilla, exportar e importar;
+* que usuario sin capacidad reciba acceso denegado al intentar descargar plantilla, exportar o subir/importar CSV, incluso llamando endpoint directamente;
+* que intento no autorizado no genere archivo, staging ni cambios de datos;
 * que CSV exportado use exactamente contrato compatible con importador;
 * que exportar y reimportar mismo CSV no produzca errores de estructura ni registros duplicados;
 * que exportación respete filtros activos, permisos y exclusión de datos no importables o sensibles;

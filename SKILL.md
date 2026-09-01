@@ -88,6 +88,7 @@ Antes de dar por terminado desarrollo, ejecutar y reportar validación funcional
 * Probar exportación CSV con datos dummy y, cuando haya filtros, comprobar que exportación respete mismo alcance filtrado y permisos.
 * Importar CSV recién exportado sin editarlo. Confirmar compatibilidad de encabezados y formatos, actualización por clave única sin duplicados, datos preservados y resultado visible en interfaz.
 * Probar plantilla CSV con su único registro ficticio, archivo inválido y carga con error. Confirmar errores por fila, rollback completo y que no queden cambios parciales.
+* Probar permisos de carga masiva con usuario autorizado y no autorizado: descargar plantilla, exportar, subir e importar. Confirmar que backend niegue endpoint directo a usuario sin capacidad y que no se genere archivo, staging ni cambios de datos.
 * Comprobar acceso a nueva sección de WordPress, CRUD principal y cada CRUD de catálogo relacionado.
 * Verificar que comunicación use API REST de WordPress, listados implementen `WP_List_Table` y cada creación, actualización o eliminación genere auditoría.
 * Informar resultados ejecutados, entorno usado y cualquier prueba no realizada; no declarar desarrollo terminado si falla una prueba obligatoria.
