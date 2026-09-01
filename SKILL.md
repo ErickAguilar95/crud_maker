@@ -65,7 +65,7 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 ### 4. Generar carga masiva
 
 * Incluir carga masiva correspondiente a entidad CRUD cuando módulo permita crear o actualizar múltiples registros.
-* Implementarla exclusivamente según [references/cargas masivas.md](references/cargas%20masivas.md): CSV, plantilla con registro de ejemplo, exportación compatible para reimportar sin edición manual, validación previa, chunks máximos de 50, staging o transacción all-or-nothing, conciliación por clave única, progreso real, errores por fila y controles de seguridad.
+* Implementarla exclusivamente según [references/cargas masivas.md](references/cargas%20masivas.md): CSV, plantilla con registro de ejemplo, exportación compatible para reimportar sin edición manual, validación previa, chunks máximos de 50, staging o transacción all-or-nothing, conciliación por clave única, progreso real en modal sin navegación ni pantalla blanca, errores por fila y controles de seguridad.
 * No implementar carga masiva si requerimiento la excluye explícitamente.
 
 ### 5. Trazabilidad y Auditoría
@@ -88,6 +88,7 @@ Antes de dar por terminado desarrollo, ejecutar y reportar validación funcional
 * Probar exportación CSV con datos dummy y, cuando haya filtros, comprobar que exportación respete mismo alcance filtrado y permisos.
 * Importar CSV recién exportado sin editarlo. Confirmar compatibilidad de encabezados y formatos, actualización por clave única sin duplicados, datos preservados y resultado visible en interfaz.
 * Probar plantilla CSV con su único registro ficticio, archivo inválido y carga con error. Confirmar errores por fila, rollback completo y que no queden cambios parciales.
+* Probar interfaz de progreso: iniciar carga, confirmar apertura de modal, URL sin redirección, avance real por chunks, resultado final y error visible sin pantalla blanca.
 * Probar permisos de carga masiva con usuario autorizado y no autorizado: descargar plantilla, exportar, subir e importar. Confirmar que backend niegue endpoint directo a usuario sin capacidad y que no se genere archivo, staging ni cambios de datos.
 * Comprobar acceso a nueva sección de WordPress, CRUD principal y cada CRUD de catálogo relacionado.
 * Verificar que comunicación use API REST de WordPress, listados implementen `WP_List_Table` y cada creación, actualización o eliminación genere auditoría.

@@ -99,6 +99,19 @@ No mantengas una transacción de base de datos abierta entre distintas peticione
 
 Si el almacenamiento existente no permite transacciones reales, implementa una estrategia equivalente de staging y reemplazo atómico o rollback explícito. No presentes una importación como transaccional si pueden quedar cambios parciales.
 
+#### Modal de progreso sin navegación
+
+Inicio de importación debe conservar usuario en página de importación y mostrar modal de progreso. No enviar formulario mediante navegación tradicional ni redirigir a una pantalla en blanco.
+
+* Interceptar envío de formulario en frontend y enviar archivo mediante petición asíncrona autenticada (`apiFetch`/REST o mecanismo equivalente con `FormData`). Abrir modal antes de iniciar petición y deshabilitar acción para evitar doble envío.
+* Endpoint de preparación debe devolver JSON estructurado, incluyendo identificador de importación o staging, totales y errores iniciales. No devolver HTML, `wp_redirect`, salida directa ni una URL de pantalla intermedia.
+* Procesar validación y preparación por chunks de máximo 50 mediante peticiones asíncronas. Cada respuesta debe devolver estado, registros procesados, total, creados previstos, actualizados previstos y errores.
+* Frontend debe actualizar barra y contadores del modal con estado real de cada chunk. No usar progreso simulado por tiempo.
+* Al completar validación sin errores, ejecutar aplicación definitiva mediante endpoint asíncrono y mantener modal abierto hasta recibir confirmación o error.
+* Ante error de red, permiso, nonce, validación o aplicación, mantener usuario en misma pantalla, detener progreso, mostrar error legible en modal y permitir corregir o reintentar según corresponda. Nunca responder con página blanca.
+* Modal debe ser accesible: foco inicial, `aria` apropiado, texto de progreso anunciado, foco contenido mientras está abierto, cierre sólo cuando operación permita hacerlo y devolución de foco a `Iniciar importación` o acción posterior.
+* Al éxito, mostrar resumen final en modal y enlace o botón `Regresar al listado`; no navegar automáticamente antes de que usuario pueda revisar resultado.
+
 #### Creación y actualización por clave única
 
 Cuando la solicitud indique uno o más campos únicos para la carga masiva, esos campos deben utilizarse como clave de conciliación para determinar si cada fila crea o actualiza un registro.
@@ -182,6 +195,9 @@ Cuando un módulo incluya importación CSV, además de las comprobaciones genera
 * que exportación respete filtros activos, permisos y exclusión de datos no importables o sensibles;
 * que procese los registros en chunks de máximo 50;
 * que muestre progreso real;
+* que al iniciar importación abra modal de progreso y conserve URL/pantalla de importación;
+* que endpoints de preparación, chunks y aplicación respondan JSON estructurado, sin redirección ni HTML de pantalla intermedia;
+* que modal actualice barra y contadores con cada chunk, muestre errores sin página blanca y mantenga comportamiento accesible de foco;
 * que muestre contadores de creados, actualizados y errores;
 * que detalle los errores por fila al finalizar;
 * que una clave única existente produzca una actualización y no un duplicado;

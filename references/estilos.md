@@ -212,7 +212,9 @@ Todo CRUD debe sentirse y comportarse como una administración nativa de WordPre
 * Presentar selector de archivo con etiqueta `Archivo CSV`, texto de ayuda y errores asociados.
 * Mostrar opción de limpieza únicamente como switch visual nativo de WordPress, nunca como checkbox tradicional. Debe iniciar desactivado, indicar estado accesible y acompañarse de advertencia clara de alcance. No usar color o texto ambiguo para minimizar riesgo.
 * Usar `Iniciar importación` como única acción principal; mantener botón deshabilitado hasta que archivo cumpla validaciones iniciales cuando sea posible.
-* Durante importación y al finalizar, mostrar progreso, resultado y errores con avisos, tablas y textos nativos de WordPress. Incluir forma visible de volver al listado.
+* Al iniciar importación, abrir modal nativo accesible de progreso sin abandonar página ni cambiar a pantalla intermedia. Modal debe contener barra de avance real, total, procesados, creados previstos, actualizados previstos, errores y mensajes de estado.
+* Mantener modal abierto durante validación, chunks y aplicación definitiva. Ante error, mostrar detalle legible dentro de modal y conservar usuario en pantalla de importación; nunca mostrar página blanca ni redirigir por envío de formulario.
+* Al finalizar, mostrar resultado y errores con avisos, tablas y textos nativos de WordPress dentro de modal. Incluir acción visible `Regresar al listado` y devolver foco de forma accesible al cerrar modal.
 
 ### Línea visual común
 
