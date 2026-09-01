@@ -53,6 +53,7 @@ Para cada solicitud de CRUD, seguir este orden. No omitir pasos aunque sólo se 
 * Si el CRUD usa catálogos relacionados, crear también sub-secciones independientes para administrar cada catálogo. Cada catálogo debe contar con su propio CRUD completo: listar, crear, editar y eliminar, respetando permisos, validaciones, migraciones y estilos.
 * Ubicar CRUD principal y CRUDs de catálogos bajo misma sección funcional del menú. Usar etiquetas, orden y jerarquía claros; no mezclar catálogo con registros principales ni reutilizar secciones ajenas.
 * Mostrar en CRUD principal los catálogos como controles de relación válidos y filtrados. Un cambio en catálogo debe reflejarse sin romper integridad referencial de registros existentes.
+* En pantallas de creación y edición, renderizar campos claramente conforme a [references/estilos.md](references/estilos.md): etiqueta visible en español, requerido textual, ayuda, ancho adecuado, foco, error y accesibilidad.
 * Aplicar obligatoriamente todas las reglas de [references/validaciones.md](references/validaciones.md).
 * Usar contrato de reglas dinámicas derivado del esquema para que frontend y backend compartan tipo, requerido, longitud, rango, catálogo, relaciones, condiciones y mensajes.
 * Validar siempre en frontend y backend. Backend es autoridad final; debe rechazar datos inválidos antes de persistirlos.

@@ -199,6 +199,13 @@ Todo CRUD debe sentirse y comportarse como una administración nativa de WordPre
 * Abrir creación y edición en páginas propias con títulos `Agregar [entidad]` y `Editar [entidad]`.
 * Mostrar acción `Regresar al listado` junto al título; debe preservar filtros o paginación previos cuando sea posible.
 * Usar formulario vertical nativo WordPress: etiquetas sobre controles, descripción debajo cuando haga falta, agrupación semántica, errores junto al campo y resumen accesible al inicio.
+* Renderizar de forma visible cada campo declarado para pantalla y condición actuales. No ocultar etiquetas, reducir contraste, usar sólo placeholders ni depender de iconos para explicar campo.
+* Mostrar etiqueta en español sobre cada control y enlazarla correctamente. Campos requeridos deben indicar `Obligatorio` de forma textual y accesible, no sólo con asterisco o color.
+* Usar ancho proporcional al tipo de dato: controles breves para valores cortos, área amplia para texto largo/WYSIWYG y ancho suficiente para selects. En móvil, controles deben ocupar ancho disponible sin recortarse ni superponerse.
+* Agrupar campos relacionados bajo encabezado o `fieldset` nativo; mantener separación vertical suficiente para distinguir controles y evitar formularios densos o confusos.
+* Mostrar texto de ayuda inmediatamente debajo del control cuando formato, límite, ejemplo o consecuencia no sea obvia. No reemplazar ayuda por tooltip obligatorio.
+* Estado de foco, requerido, válido, inválido, deshabilitado y sólo lectura debe seguir estilo WordPress y conservar contraste. Campo inválido debe mostrar mensaje específico junto al control, con enlace accesible desde resumen de errores.
+* Para reglas dinámicas, al cambiar campo controlador actualizar visibilidad, requerido, ayuda y errores sin dejar campos ocultos inválidos ni valores engañosos.
 * Mantener campos en orden de captura del usuario; primero identificación y datos principales, después relaciones, configuración y acciones.
 * Usar botón principal nativo para guardar. En edición, separar claramente guardado y eliminación; eliminación nunca comparte estilo de acción principal.
 * Al guardar correctamente, mostrar aviso nativo de éxito y regresar o enlazar al listado según flujo del módulo. Al fallar, conservar valores seguros y mostrar errores del backend.
